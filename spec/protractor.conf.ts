@@ -9,10 +9,10 @@ export let config = {
 
   specs: [
     "home-items.spec.js",
-    "home-actions.spec.js",
-    "home-wait.spec.js",
-    "external-functions.spec.js",
-    "home-component.spec.js",
+    //"home-actions.spec.js",
+    //"home-wait.spec.js",
+    //"external-functions.spec.js",
+    //"home-component.spec.js",
   ],
 
   framework: "jasmine",
@@ -31,11 +31,11 @@ export let config = {
 		displayStacktrace: true
 	})); 
 
-	var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
-	jasmine.getEnv().addReporter( new Jasmine2HtmlReporter({
-		takeScreenshots: true,
-		takeScreenshotsOnlyOnFailures: false
-	}));
+	//var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
+	//jasmine.getEnv().addReporter( new Jasmine2HtmlReporter({
+	//	takeScreenshots: true,
+	//	takeScreenshotsOnlyOnFailures: false
+	//}));
 
   },
 
