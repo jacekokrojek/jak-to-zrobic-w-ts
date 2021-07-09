@@ -1,17 +1,15 @@
-import { browser, $, $$, element, by, protractor } from "protractor";
+import { browser, $, $$, element, by} from "protractor";
 
 describe("Strona główna bestdrive", function () {
 
   const url = "https://bestdrive.webshop.pl/opona/ustawserwis?w=Mazowieckie&k=Navigator&returnUrl=";
 
-  // beforeAll(async function(){
-  //   await browser.get(url);
-  // });
 
-  it("powinna mieć tytuł: BestDrive sklep - Strona główna", async function () {
+
+  it("powinna mieć tytuł: Bestdrive - Opony online - bestdrive.webshop.pl", async function () {
     await browser.get(url);
     const title = await browser.getTitle();
-    expect(title).toMatch('BestDrive sklep - Strona główna');
+    expect(title).toMatch('Bestdrive - Opony online - bestdrive.webshop.pl');
   });
 
   it("powinna wyświetlać nazwę wybranego serwisu", async function() {
@@ -20,28 +18,29 @@ describe("Strona główna bestdrive", function () {
     expect(serviceName).toEqual('Navigator');
   });
 
-  xit("powinna domyślnie wyświetlać wyszukiwarkę opon wg. rozmiaru", async function() {
-    //await browser.get(url);
-    //const defaultSearch ...
-    //expect(defaultSearch).toEqual(...)
+  it("powinna domyślnie wyświetlać wyszukiwarkę opon wg. rozmiaru", async function() {
+    await browser.get(url);
+    
+    let getSizeForm = await element(by.id('WyborOpon'));
+    expect(getSizeForm.isPresent()).toBe(true);
   });
 
   it("powinna posiadac menu zawierajace: 'OPONY WG ROZMIARU', 'OPONY WG POJAZDU,'PROMOCJE','KOSZYK (0)'", async function() {
+    const  menuItems = ['OPONY WG ROZMIARU', 'OPONY WG POJAZDU', 'PROMOCJE', 'KOSZYK (0)', '' ];
     await browser.get(url);
-    const nav = await $$('ul.nav li').getText();
-    expect(nav).toEqual([ 'OPONY WG ROZMIARU', 'OPONY WG POJAZDU', 'PROMOCJE', 'KOSZYK (0)', '' ]);
+    const getMenuItems = await element.all(by.css('ul.nav li')).map((el)=>{
+      return el.getText();
+    })
+    expect(getMenuItems).toEqual(menuItems);
   });
 
   it("powinna posiadac menu z pierwszym elementem 'OPONY WG ROZMIARU'", async function() {
     await browser.get(url);
-    const nav = await $$('ul.nav li').get(0).getText();
-    expect(nav).toEqual('OPONY WG ROZMIARU');
+    const getTextFromMenu = await $$('ul.nav li').get(0).getText();
+    expect(getTextFromMenu).toEqual('OPONY WG ROZMIARU');
   });
+  xit("powinna posiadac stopkę z linkami do ...", async function() {
 
-  it("powinna posiadac stopkę z linkami do ...", async function() {
-    //await browser.get(url);
-    //const nav 
-    //expect(nav).toEqual();
   });
 
 });

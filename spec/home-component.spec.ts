@@ -1,4 +1,4 @@
-import { browser, $, $$, element, by, protractor } from "protractor";
+import { browser, $} from "protractor";
 import { SearchComponent } from "./components/search";
 
 describe("Wyszukiwarka", function () {
