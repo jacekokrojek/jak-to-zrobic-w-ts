@@ -25,10 +25,11 @@ export let config = {
     browser.ignoreSynchronization = true;
     browser.manage().window().setSize(1680, 1050);
     browser.manage().timeouts().implicitlyWait(15000);
+ 
 
     var SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 	jasmine.getEnv().addReporter(new SpecReporter({
-		displayStacktrace: true
+		displayStacktrace: true,
 	})); 
 
 	//var Jasmine2HtmlReporter = require('protractor-jasmine2-html-reporter');
