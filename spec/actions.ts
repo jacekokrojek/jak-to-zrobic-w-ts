@@ -13,6 +13,5 @@ export async function select(idx, item) {
 
 export async function browserWait(element) {
   let ec = protractor.ExpectedConditions;
-  await browser.wait(ec.visibilityOf(element), 5000);
+  await browser.wait(ec.presenceOf(element), 5000);
 }
-

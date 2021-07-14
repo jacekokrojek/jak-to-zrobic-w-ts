@@ -5,61 +5,44 @@ describe("Strona główna bestdrive", function () {
   const url =
     "https://bestdrive.webshop.pl/opona/ustawserwis?w=Mazowieckie&k=Navigator&returnUrl=";
 
-  beforeEach(async function () {
-    await browser.get(url);
-  });
 
   it("powinna mieć tytuł: Bestdrive - Opony online - bestdrive.webshop.pl", async function () {
+    await browser.get(url);
     let title = await browser.getTitle();
     expect(title).toMatch("Bestdrive - Opony online - bestdrive.webshop.pl");
   });
 
   it("powinna wyświetlać nazwę wybranego serwisu", async function () {
+    await browser.get(url);
     let serviceName = await element(by.css(".serwis-nazwa")).getText();
     expect(serviceName).toEqual("Navigator");
   });
 
   it("powinna domyślnie wyświetlać wyszukiwarkę opon wg. rozmiaru", async function () {
+    await browser.get(url);
     let getSizeForm = await element(by.id("WyborOpon"));
     expect(getSizeForm.isPresent()).toBe(true);
   });
 
   it("powinna posiadac menu zawierajace: 'OPONY WG ROZMIARU', 'OPONY WG POJAZDU,'PROMOCJE','KOSZYK (0)'", async function () {
-    let menuItems = [
-      "OPONY WG ROZMIARU",
-      "OPONY WG POJAZDU",
-      "PROMOCJE",
-      "KOSZYK (0)",
-      "",
-    ];
-    let getMenuItems = await element.all(by.css("ul.nav li")).map((el) => {
-      return el.getText();
+    let menuItemsArray = ["OPONY WG ROZMIARU","OPONY WG POJAZDU","PROMOCJE","KOSZYK (0)","",];
+    await browser.get(url);
+    let getMenuItems = await element.all(by.css("ul.nav li")).map((menuItems) => {
+      return menuItems.getText();
     });
-    expect(getMenuItems).toEqual(menuItems);
+    expect(getMenuItems).toEqual(menuItemsArray);
   });
 
   it("powinna posiadac menu z pierwszym elementem 'OPONY WG ROZMIARU'", async function () {
-    let getTextFromMenu = await element
-      .all(by.css("ul.nav li"))
-      .get(0)
-      .getText();
+    await browser.get(url);
+    let getTextFromMenu = await element.all(by.css("ul.nav li")).first().getText();
     expect(getTextFromMenu).toEqual("OPONY WG ROZMIARU");
   });
 
   it("powinna posiadac stopkę z linkami do ...", async function () {
-    let arrayHref = [
-      "/",
-      "/opony-pojazdu",
-      "/promocje-opon",
-      "",
-      "/Koszyk/Podsumowanie",
-      "/Koszyk/Podsumowanie",
-    ];
-    let getAHref = await element
-      .all(by.css(".navbar-nav   li  a"))
-      .map((el) => {
-        return el.getAttribute("href");
-      });
+    let arrayHref = ["/","/opony-pojazdu","/promocje-opon","","/Koszyk/Podsumowanie","/Koszyk/Podsumowanie",];
+    await browser.get(url);
+    let getAHref = await element.all(by.css(".navbar-nav   li  a")).map((el) => {return el.getAttribute("href");});
     expect(getAHref).toEqual(arrayHref);
   });
 
@@ -69,42 +52,35 @@ describe("Strona główna bestdrive", function () {
       by.css('[aria-controls="opona-szerokosc_listbox"]')
     );
     let widthChoseSize = await element(
-      by.css("#opona-szerokosc_listbox  li:nth-child(2)")
+      by.xpath('//ul/li[text()="225"]')
     );
     let height = element(by.css('[aria-controls="opona-profil_listbox"]'));
     let heightChoseSize = await element(
-      by.css("#opona-profil_listbox  li:nth-child(3)")
+      by.xpath('//ul/li[text()="60"]')
     );
     let radius = await element(
       by.css('[aria-controls="opona-srednica_listbox"]')
     );
-    let radiusChooseSize = await element(
-      by.css("#opona-srednica_listbox  li:nth-child(1)")
+    let radiusChoseSize = await element(
+      by.xpath('//ul/li[text()="16"]')
     );
     let btnSearch = await element(by.css("#btnSzukajOponyWgRozmiar"));
-    let getElementH1 = await element(
-      by.css(".naglowekH1 > div:nth-child(1) > h1:nth-child(1)")
-    );
+    await browser.get(url);
     await btnTruck.click();
-    await browserWait(width);
     await width.click();
     await browserWait(widthChoseSize);
     await widthChoseSize.click();
     await btnTruck.click();
     await browserWait(height);
     await height.click();
-    await height.click();
     await browserWait(heightChoseSize);
     await heightChoseSize.click();
     await btnTruck.click();
     await browserWait(radius);
     await radius.click();
-    await radius.click();
-    await browserWait(radiusChooseSize);
-    await radiusChooseSize.click();
-    await browserWait(btnSearch);
+    await browserWait(radiusChoseSize);
+    await radiusChoseSize.click();
     await btnSearch.click();
-    await browserWait(getElementH1);
     expect(await browser.getCurrentUrl()).toContain("dostawcza");
   });
 
@@ -114,42 +90,35 @@ describe("Strona główna bestdrive", function () {
       by.css('[aria-controls="opona-szerokosc_listbox"]')
     );
     let widthChoseSize = await element(
-      by.css("#opona-szerokosc_listbox  li:nth-child(5)")
+      by.xpath('//ul/li[text()="235"]')
     );
     let height = element(by.css('[aria-controls="opona-profil_listbox"]'));
     let heightChoseSize = await element(
-      by.css("#opona-profil_listbox  li:nth-child(3)")
+      by.xpath('//ul/li[text()="55"]')
     );
     let radius = await element(
       by.css('[aria-controls="opona-srednica_listbox"]')
     );
     let radiusChooseSize = await element(
-      by.css("#opona-srednica_listbox  li:nth-child(1)")
+      by.xpath('//ul/li[text()="17"]')
     );
     let btnSearch = await element(by.css("#btnSzukajOponyWgRozmiar"));
-    let getElementH1 = await element(
-      by.css(".naglowekH1 > div:nth-child(1) > h1:nth-child(2)")
-    );
+    await browser.get(url);
     await btnJeep.click();
-    await browserWait(width);
     await width.click();
     await browserWait(widthChoseSize);
     await widthChoseSize.click();
     await btnJeep.click();
     await browserWait(height);
     await height.click();
-    await height.click();
     await browserWait(heightChoseSize);
     await heightChoseSize.click();
     await btnJeep.click();
     await browserWait(radius);
     await radius.click();
-    await radius.click();
     await browserWait(radiusChooseSize);
     await radiusChooseSize.click();
-    await browserWait(btnSearch);
     await btnSearch.click();
-    await browserWait(getElementH1);
     expect(await browser.getCurrentUrl()).toContain("4x4");
   });
 
@@ -159,42 +128,35 @@ describe("Strona główna bestdrive", function () {
       by.css('[aria-controls="opona-szerokosc_listbox"]')
     );
     let widthChoseSize = await element(
-      by.css("#opona-szerokosc_listbox  li:nth-child(2)")
+      by.xpath('//ul/li[text()="215"]')
     );
     let height = element(by.css('[aria-controls="opona-profil_listbox"]'));
     let heightChoseSize = await element(
-      by.css("#opona-profil_listbox  li:nth-child(3)")
+      by.xpath('//ul/li[text()="40"]')
     );
     let radius = await element(
       by.css('[aria-controls="opona-srednica_listbox"]')
     );
     let radiusChooseSize = await element(
-      by.css("#opona-srednica_listbox  li:nth-child(1)")
+      by.xpath('//*/ul/li[text()="17"]')
     );
     let btnSearch = await element(by.css("#btnSzukajOponyWgRozmiar"));
-    let getElementH1 = await element(
-      by.css(".naglowekH1 > div:nth-child(1) > h1:nth-child(1)")
-    );
+    await browser.get(url);
     await btnCar.click();
-    await browserWait(width);
     await width.click();
     await browserWait(widthChoseSize);
     await widthChoseSize.click();
     await btnCar.click();
     await browserWait(height);
     await height.click();
-    await height.click();
     await browserWait(heightChoseSize);
     await heightChoseSize.click();
     await btnCar.click();
     await browserWait(radius);
     await radius.click();
-    await radius.click();
     await browserWait(radiusChooseSize);
     await radiusChooseSize.click();
-    await browserWait(btnSearch);
     await btnSearch.click();
-    await browserWait(getElementH1);
-    expect(await browser.getCurrentUrl()).toContain("125-80-13");
+    expect(await browser.getCurrentUrl()).toContain("215-40-17");
   });
 });

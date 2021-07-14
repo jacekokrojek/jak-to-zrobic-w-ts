@@ -24,7 +24,7 @@ describe("Wyszukiwarka", function () {
   });
 
   it("powinna wyświetlić listę opon po naciśnięciu przycisku 'Szukaj opon'", async function () {
-    let getTiresText = await element(by.css(".naglowekH1 > div:nth-child(1) > h1:nth-child(1)"));
+    let getTiresText = await element(by.css('//div/h1[text()="Lista opon"]'));
     await element(by.css("#btnSzukajOponyWgRozmiar")).click();
     expect(getTiresText).toEqual("Lista Opon")
   });
