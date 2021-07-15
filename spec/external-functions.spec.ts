@@ -1,45 +1,40 @@
 import { browser, by, element } from "protractor";
-import { browserWait} from "./actions";
+import { browserWait } from "./actions";
 
 describe("Wyszukiwarka", function () {
-  const url = "https://bestdrive.webshop.pl/opona/ustawserwis?w=Mazowieckie&k=Navigator&returnUrl=";
+  const url =
+    "https://bestdrive.webshop.pl/opona/ustawserwis?w=Mazowieckie&k=Navigator&returnUrl=";
 
   it("powinna umożliwiać zmianę domyślnej szerokości opon", async function () {
     let btnCar = await element(by.css("#opony-wybor-button-car"));
-    let width = await element(
-      by.css('[aria-controls="opona-szerokosc_listbox"]')
+    let btnSearch = await element(by.css("#btnSzukajOponyWgRozmiar"));
+    let ariaBusy = await element(
+      by.xpath(
+        '//input[@aria-owns="opona-szerokosc_listbox"][@aria-busy="false"]'
+      )
     );
-    let widthChoseSize = await element(
-      by.xpath('//ul/li[text()="215"]')
-    );
-    let height = element(by.css('[aria-controls="opona-profil_listbox"]'));
-    let heightChoseSize = await element(
-      by.xpath('//ul/li[text()="40"]')
+    let height = await element(
+      by.xpath('//input[@aria-owns="opona-profil_listbox"][@aria-busy="false"]')
     );
     let radius = await element(
-      by.css('[aria-controls="opona-srednica_listbox"]')
+      by.xpath(
+        '//input[@aria-owns="opona-srednica_listbox"][@aria-busy="false"]'
+      )
     );
-    let radiusChooseSize = await element(
-      by.xpath('//*/ul/li[text()="17"]')
-    );
-    let btnSearch = await element(by.css("#btnSzukajOponyWgRozmiar"));
     await browser.get(url);
     await btnCar.click();
-    await width.click();
-    await browserWait(widthChoseSize);
-    await widthChoseSize.click();
+    await ariaBusy.clear();
+    await ariaBusy.sendKeys("215");
     await btnCar.click();
     await browserWait(height);
     await height.click();
-    await browserWait(heightChoseSize);
-    await heightChoseSize.click();
+    await height.clear();
+    await height.sendKeys("40");
     await btnCar.click();
     await browserWait(radius);
-    await radius.click();
-    await browserWait(radiusChooseSize);
-    await radiusChooseSize.click();
+    await radius.clear();
+    await radius.sendKeys("16");
     await btnSearch.click();
-    expect(await browser.getCurrentUrl()).toContain("215-40-17");
+    expect(await browser.getCurrentUrl()).toContain("215-40-16");
   });
 });
-
