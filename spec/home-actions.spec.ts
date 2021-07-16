@@ -1,56 +1,41 @@
-import { browser, $, $$, element, by, protractor } from "protractor";
+import { browser, element, by } from "protractor";
 
 describe("Wyszukiwarka", function () {
+  describe("Strona główna bestdrive", function () {
+    const url =
+      "https://bestdrive.webshop.pl/opona/ustawserwis?w=Mazowieckie&k=Navigator&returnUrl=";
 
-  const url = "https://bestdrive.webshop.pl/opona/ustawserwis?w=Mazowieckie&k=Navigator&returnUrl=";
+    beforeEach(async function () {
+      await browser.get(url);
+    });
 
-  beforeEach(async function(){
-    await browser.get(url);
+    it("powinna mieć ustawioną domyślną szerokość opon", async function () {
+      const width = await element(by.css("#opona-szerokosc")).getAttribute(
+        "value"
+      );
+      expect(width).toEqual("205");
+    });
+
+    it("powinna mieć ustawioną domyślną wysokość opon", async function () {
+      const height = await element(by.css("#opona-profil")).getAttribute(
+        "value"
+      );
+      expect(height).toEqual("55");
+    });
+
+    it("powinna mieć ustawiony domyślny promień opon", async function () {
+      const diameter = await element(by.css("#opona-srednica")).getAttribute(
+        "value"
+      );
+      expect(diameter).toEqual("16");
+    });
+
+    it("powinna wyświetlić listę opon po naciśnięciu przycisku 'Szukaj opon'", async function () {
+      await element(by.css("#btnSzukajOponyWgRozmiar")).click();
+      let getTiresText = await element(
+        by.xpath('//div/h1[text()="Lista opon"]')
+      ).getText();
+      expect(getTiresText).toEqual("Lista opon");
+    });
   });
-
-  it("powinna mieć ustawioną domyślną szerokość opon", async function () {
-    const width = await $('#opona-szerokosc').getAttribute("value");
-    expect(width).toEqual("205");
-  });
-
-  xit("powinna mieć ustawioną domyślną wysokość opon", async function () {
-  });
-
-  xit("powinna mieć ustawiony domyślny promień opon", async function () {
-  });
-
-  it("powinna wyświetlić listę opon po naciśnięciu przycisku 'Szukaj opon'", async function () {
-    await $('#btnSzukajOponyWgRozmiar').click();
-    const header = await $('span.opony-small-top-label-opony').getText();
-    expect(header).toEqual('Opony');
-  });
-
-  xit("powinna umożliwiać wyszukiwanie opon dla samochodów ciężarowych", async function () {
-  });
-
-  xit("powinna  umożliwiać wyszukiwanie opon dla samochodów terenowych", async function () {
-  });
-
-  it("powinna umożliwiać zmianę domyślnej szerokości opon", async function () {
-    await $$('span.k-select').get(0).click();
-    await browser.sleep(1000);
-    await element(by.xpath('//li[text()="215"]')).click();
-    await browser.sleep(1000);
-    const width = await $('#opona-szerokosc').getAttribute("value");
-    expect(width).toEqual("215");
-  });
-
-  // async function setWidth(width){
-  //   await $('span.k-select').get(0).click();
-  //   await browser.sleep(500);
-  //   await element(by.xpath(`//li[text()="${width}"]`)).click();
-  // }
-
-  // it("umożliwiać zmianę domyślnej szerokości opon", async function () {
-  //   let newWidth = "225";
-  //   await setWidth(newWidth)
-  //   const width = await $('#opona-szerokosc').getAttribute("value");
-  //   expect(width).toEqual(newWidth);
-  // });
-
 });

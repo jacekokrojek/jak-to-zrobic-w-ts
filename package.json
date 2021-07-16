@@ -10,28 +10,29 @@
   "author": "Jacek Okrojek <jacek.okrojek@testarmy.com>",
   "license": "",
   "devDependencies": {
-    "@types/protractor": "^4.0.0",
-    "@types/node": "^6.0.46",
-    "@types/selenium-webdriver": "~2.53.39",
+    "@types/core-js": "^2.5.4",
     "@types/jasmine": "^2.5.47",
-    "@types/jasminewd2": "^2.0.0",
-    "moment": "^2.19.1",
-    "protractor": "5.1.2",
-    "selenium-webdriver": "3.6.0",
-    "source-map-support": "~0.4.0",
-    "webdriver-js-extender": "^1.0.0",
-    "webdriver-manager": "^12.0.6",
-    "ts-node": "^3.2.1",
-    "typescript": "^2.5.3",
-    "jasmine-reporters": "^2.0.7",
-    "jasmine-spec-reporter": "^2.5.0",
-    "jasmine2-custom-message": "^0.8.0",
-    "protractor-jasmine2-html-reporter": "0.0.6"
+    "@types/jasminewd2": "^2.0.10",
+    "@types/node": "^16.0.1",
+    "@types/protractor": "^4.0.0",
+    "@types/selenium-webdriver": "~4.0.15",
+    "jasmine-reporters": "^2.4.0",
+    "jasmine-spec-reporter": "^7.0.0",
+    "jasmine2-custom-message": "^0.9.3",
+    "moment": "^2.29.1",
+    "protractor": "7.0.0",
+    "protractor-jasmine2-html-reporter": "0.0.7",
+    "selenium-webdriver": "^4.0.0-beta.4",
+    "source-map-support": "~0.5.19",
+    "ts-node": "^10.0.0",
+    "typescript": "^4.3.5",
+    "webdriver-js-extender": "^2.2.0",
+    "webdriver-manager": "^12.1.8"
   },
   "scripts": {
     "test": "node node_modules/protractor/bin/protractor ./built/protractor.conf.js",
     "pretest": "node node_modules/typescript/bin/tsc -p ts_spec_config.json",
     "t": "node node_modules/typescript/bin/tsc -p ts_spec_config.json",
-	"postinstall": "node node_modules/protractor/bin/webdriver-manager update"
+    "postinstall": "node node_modules/protractor/bin/webdriver-manager update"
   }
 }
