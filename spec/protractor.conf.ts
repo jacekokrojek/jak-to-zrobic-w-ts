@@ -26,7 +26,7 @@ export let config = {
     browser.manage().window().setSize(1680, 1050);
     browser.manage().timeouts().implicitlyWait(15000);
 
-	var SpecReporter = require('jasmine-spec-reporter');
+	let SpecReporter = require('jasmine-spec-reporter').SpecReporter;
 	jasmine.getEnv().addReporter(new SpecReporter({
 		displayStacktrace: true
 	})); 
